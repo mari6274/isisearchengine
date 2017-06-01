@@ -1,13 +1,13 @@
 (function () {
-    angular.module('app').service('SearchService', ['$http', SearchService]);
+    angular.module('app').service('SearchService', ['$http', '$location', SearchService]);
 
-    function SearchService($http) {
+    function SearchService($http, $location) {
         this.search = search;
 
         return this;
 
         function search(query) {
-            return $http.get('http://localhost:8080/search?query=' + query);
+            return $http.get($location.protocol() + '://' + $location.host() + ':' + $location.port() + '/search?query=' + query);
         }
     }
 })();
