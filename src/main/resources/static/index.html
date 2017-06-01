@@ -1,22 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="/webjars/angularjs/1.6.4/angular.js"></script>
+    <script src="webjars/angularjs/1.6.4/angular.min.js"></script>
+    <script src="webjars/jquery/1.11.1/jquery.min.js"></script>
+    <script src="webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
     <script src="js/app.js"></script>
     <script src="js/search.service.js"></script>
     <script src="js/search.controller.js"></script>
+    <link rel="stylesheet" href="webjars/bootstrap/3.3.7-1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/searchbox.css"/>
 
     <meta charset="UTF-8"/>
     <title>Search engine</title>
 </head>
 <body ng-app="app" ng-controller="SearchController as sc">
-<div>
-    <input placeholder="Query" ng-model="sc.query" type="text"/>
-    <button ng-click="sc.search()">Search</button>
-</div>
-<div>
-    <div ng-repeat="document in sc.searchResult">
-        {{document.content}}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <form ng-submit="sc.search()">
+                <div class="input-group" id="adv-search">
+
+                    <input type="text" class="form-control" placeholder="Query" ng-model="sc.query"/>
+                    <div class="input-group-btn">
+                        <div class="btn-group" role="group">
+                            <button type="submit" class="btn btn-primary">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div id="error-message" class="alert alert-danger" ng-show="sc.isError()">
+                {{sc.errorMessage}}
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-repeat="document in sc.searchResult">
+        <blockquote>
+            {{document.content}}
+        </blockquote>
     </div>
 </div>
 </body>
