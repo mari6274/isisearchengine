@@ -9,13 +9,14 @@
     <script src="js/search.service.js"></script>
     <script src="js/search.controller.js"></script>
     <link rel="stylesheet" href="webjars/bootstrap/3.3.7-1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/application.css"/>
     <link rel="stylesheet" href="css/searchbox.css"/>
 
     <meta charset="UTF-8"/>
     <title>Search engine</title>
 </head>
 <body ng-app="app" ng-controller="SearchController as sc">
-<div class="container">
+<div class="search-panel">
     <div class="row">
         <div class="col-md-12">
             <form ng-submit="sc.search()">
@@ -54,10 +55,14 @@
             </ul>
         </div>
     </div>
-    <div class="row" ng-repeat="document in sc.searchResult.content">
-        <blockquote>
-            {{document.content}}
-        </blockquote>
+</div>
+<div class="container">
+    <div class="result-panel">
+        <div class="row" ng-repeat="document in sc.searchResult.content">
+            <blockquote>
+                {{document.content}}
+            </blockquote>
+        </div>
     </div>
 </div>
 </body>

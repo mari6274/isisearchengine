@@ -1,0 +1,11 @@
+.search-panel {
+    position: fixed;
+    left: 0;
+    right: 0;
+    background-color: white;
+    padding-top: 50px;
+}
+
+.result-panel {
+    margin-top: 204px;
+}
