@@ -6,8 +6,9 @@
 
         return this;
 
-        function search(query) {
-            return $http.get($location.protocol() + '://' + $location.host() + ':' + $location.port() + '/search?query=' + query);
+        function search(query, page, size) {
+            return $http.get($location.protocol() + '://' + $location.host() + ':' + $location.port()
+                + '/search?query=' + query + '&page=' + page + '&size=' + size);
         }
     }
 })();

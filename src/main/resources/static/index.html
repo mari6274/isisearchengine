@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <script src="webjars/angularjs/1.6.4/angular.min.js"></script>
     <script src="webjars/jquery/1.11.1/jquery.min.js"></script>
     <script src="webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
+    <script src="js/third_party/ui-bootstrap-tpls-2.5.0.min.js"></script>
     <script src="js/app.js"></script>
     <script src="js/search.service.js"></script>
     <script src="js/search.controller.js"></script>
@@ -35,7 +36,25 @@
             </div>
         </div>
     </div>
-    <div class="row" ng-repeat="document in sc.searchResult">
+    <div class="row">
+        <div class="text-center">
+            <ul uib-pagination
+                total-items="sc.searchResult.totalElements"
+                ng-change="sc.pageChanged()"
+                ng-model="sc.paginatorConfig.currentPage"
+                max-size="sc.paginatorConfig.maxSize"
+                items-per-page="20"
+                class="pagination-sm"
+                boundary-links="true"
+                force-ellipses="true"
+                previous-text="&lsaquo;"
+                next-text="&rsaquo;"
+                first-text="&laquo;"
+                last-text="&raquo;">
+            </ul>
+        </div>
+    </div>
+    <div class="row" ng-repeat="document in sc.searchResult.content">
         <blockquote>
             {{document.content}}
         </blockquote>

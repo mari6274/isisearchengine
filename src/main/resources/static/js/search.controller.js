@@ -3,19 +3,34 @@
 
     function SearchController(SearchService) {
         var vm = this;
+        const PAGE_SIZE = 20;
+        const MAX_PAGES = 100;
         vm.query = '';
-        vm.searchResult = [];
+        vm.searchResult = null;
         vm.search = search;
         vm.isError = isError;
         vm.errorMessage = '';
+        vm.paginatorConfig = {
+            currentPage: 1,
+            maxSize: 5
+        };
+        vm.pageChanged = pageChanged;
 
-        function search() {
-            SearchService.search(vm.query).then(onSearchSuccess, onSearchFailure);
+        function pageChanged() {
+            SearchService.search(vm.query, vm.paginatorConfig.currentPage - 1, PAGE_SIZE).then(onSearchSuccess, onSearchFailure);
         }
 
-        function onSearchSuccess(result) {
+        function search() {
+            SearchService.search(vm.query, 0, PAGE_SIZE).then(function (response) {
+                onSearchSuccess(response);
+                vm.paginatorConfig.currentPage = 1;
+            }, onSearchFailure);
+        }
+
+        function onSearchSuccess(response) {
             vm.errorMessage = '';
-            vm.searchResult = result.data;
+            vm.searchResult = response.data;
+            vm.searchResult.totalElements = Math.min(vm.searchResult.totalElements, PAGE_SIZE * MAX_PAGES)
         }
 
         function onSearchFailure(error) {
