@@ -16,6 +16,10 @@
         };
         vm.pageChanged = pageChanged;
 
+        SearchService.total().then(function (response) {
+            vm.total = response.data ;
+        });
+
         function pageChanged() {
             SearchService.search(vm.query, vm.paginatorConfig.currentPage - 1, PAGE_SIZE)
                 .then(onSearchSuccess, onSearchFailure)

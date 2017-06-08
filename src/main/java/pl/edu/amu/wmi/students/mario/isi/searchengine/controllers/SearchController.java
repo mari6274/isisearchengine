@@ -32,6 +32,12 @@ public class SearchController {
         return fixEmptyPage(documentElasticSearchRepository.search(QueryBuilders.queryStringQuery(query), pageable));
     }
 
+
+    @GetMapping(path = "/total")
+    public long total() {
+        return documentElasticSearchRepository.count();
+    }
+
     /**
      * Spring issue workaround
      * https://jira.spring.io/browse/DATAES-274
