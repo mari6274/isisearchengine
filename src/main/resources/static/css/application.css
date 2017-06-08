@@ -9,3 +9,9 @@
 .result-panel {
     margin-top: 204px;
 }
+
+#spinner {
+    position: fixed;
+    left: 20px;
+    top: 20px;
+}

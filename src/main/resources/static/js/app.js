@@ -1,3 +1,3 @@
 (function() {
-    angular.module('app', ['ui.bootstrap'])
+    angular.module('app', ['ui.bootstrap', 'angularSpinner'])
 })();

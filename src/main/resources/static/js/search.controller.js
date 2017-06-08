@@ -1,7 +1,7 @@
 (function () {
-    angular.module('app').controller('SearchController', ['SearchService', '$window', SearchController]);
+    angular.module('app').controller('SearchController', ['SearchService', '$window', 'usSpinnerService', SearchController]);
 
-    function SearchController(SearchService, $window) {
+    function SearchController(SearchService, $window, usSpinnerService) {
         var vm = this;
         const PAGE_SIZE = 20;
         const MAX_PAGES = 100;
@@ -27,12 +27,16 @@
         }
 
         function search() {
+            usSpinnerService.spin('spinner');
             SearchService.search(vm.query, 0, PAGE_SIZE)
                 .then(function (response) {
                     onSearchSuccess(response);
                     vm.paginatorConfig.currentPage = 1;
                 }, onSearchFailure)
-                .finally(scrollTop);
+                .finally(function() {
+                    scrollTop();
+                    usSpinnerService.stop('spinner');
+                });
         }
 
         function onSearchSuccess(response) {
